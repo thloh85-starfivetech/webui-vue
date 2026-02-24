@@ -98,7 +98,7 @@ $toolbar-height: 46px;
 }
 
 // Using v-deep to style export slot child-element
-// depricated and vue-js 3
+// deprecated and vue-js 3
 .toolbar-actions :deep(.btn) {
   position: relative;
   &:after {
