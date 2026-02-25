@@ -1027,11 +1027,6 @@
             "serverConnectionEstablished": "Соединение установлено",
             "serverClosedSuccessfully": "Соединение закрыто",
             "serverClosedWithErrors": "Соединение разорвано"
-        },
-        "mediaDeviceType": "Media device type",
-        "mediaDeviceTypes": {
-            "cdDvdRom": "CD-ROM/DVD-ROM",
-            "massStorageDevice": "Mass storage device"
         }
     },
     "countries": {

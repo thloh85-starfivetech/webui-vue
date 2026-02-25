@@ -1027,11 +1027,6 @@
             "serverConnectionEstablished": "სერვერთან მიერთება დამყარებულია",
             "serverClosedSuccessfully": "სერვერი წარმატებით დაიხურა",
             "serverClosedWithErrors": "სერვერი შეცდომებით დაიხურა"
-        },
-        "mediaDeviceType": "Media device type",
-        "mediaDeviceTypes": {
-            "cdDvdRom": "CD-ROM/DVD-ROM",
-            "massStorageDevice": "Mass storage device"
         }
     },
     "countries": {
