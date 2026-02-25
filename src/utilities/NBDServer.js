@@ -31,18 +31,19 @@ const NBD_STATE_WAIT_OPTION = 4;
 const NBD_STATE_TRANSMISSION = 5;
 
 export default class NBDServer {
-  constructor(endpoint, file, id, token) {
+  constructor(endpoint, file, id, token, mediaType = 'CD') {
     this.socketStarted = () => {};
     this.socketClosed = () => {};
     this.errorReadingFile = () => {};
     this.file = file;
     this.id = id;
+    this.mediaType = mediaType;
     this.endpoint = endpoint;
     this.ws = null;
     this.state = NBD_STATE_UNKNOWN;
     this.msgbuf = null;
     this.start = function () {
-      this.ws = new WebSocket(this.endpoint, [token]);
+      this.ws = new WebSocket(this.endpoint, [token], mediaType);
       this.state = NBD_STATE_OPEN;
       this.ws.binaryType = 'arraybuffer';
       this.ws.onmessage = this._on_ws_message.bind(this);
