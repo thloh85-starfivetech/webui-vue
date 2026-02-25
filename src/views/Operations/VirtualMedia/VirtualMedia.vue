@@ -9,6 +9,18 @@
           <b-row>
             <b-col v-for="(dev, $index) in proxyDevices" :key="$index" md="6">
               <b-form-group :label="dev.id" label-class="bold">
+                <b-form-group
+                  :label="$t('pageVirtualMedia.mediaDeviceType')"
+                  :label-for="`proxy-media-device-type-${$index}`"
+                  class="mb-2"
+                >
+                  <b-form-select
+                    :id="`proxy-media-device-type-${$index}`"
+                    v-model="dev.mediaType"
+                    :disabled="dev.isActive"
+                    :options="mediaDeviceTypeOptions"
+                  />
+                </b-form-group>
                 <form-file
                   v-if="!dev.isActive"
                   :id="concatId(dev.id)"
@@ -60,11 +72,11 @@
               >
                 <b-form-group
                   :label="$t('pageVirtualMedia.mediaDeviceType')"
-                  :label-for="`media-device-type-${$index}`"
+                  :label-for="`legacy-media-device-type-${$index}`"
                   class="mb-2"
                 >
                   <b-form-select
-                    :id="`media-device-type-${$index}`"
+                    :id="`legacy-media-device-type-${$index}`"
                     v-model="device.mediaType"
                     :disabled="device.isActive"
                     :options="mediaDeviceTypeOptions"
@@ -175,6 +187,7 @@ export default {
         device.file,
         device.id,
         token,
+        device.mediaType,
       );
       device.nbd.socketStarted = () =>
         this.successToast(

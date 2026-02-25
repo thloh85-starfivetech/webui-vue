@@ -41,6 +41,7 @@ const VirtualMediaStore = {
           id: i18n.global.t('pageVirtualMedia.defaultDeviceName'),
           websocket: '/vm/0/0',
           file: null,
+          mediaType: 'CD',
           transferProtocolType: transferProtocolType.OEM,
           isActive: false,
         };
@@ -72,6 +73,7 @@ const VirtualMediaStore = {
               return {
                 ...device,
                 file: null,
+                mediaType: 'CD',
               };
             });
           const legacyDevices = deviceData
