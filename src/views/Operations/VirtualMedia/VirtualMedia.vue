@@ -187,7 +187,6 @@ export default {
         device.file,
         device.id,
         token,
-        device.mediaType,
       );
       device.nbd.socketStarted = () =>
         this.successToast(
@@ -210,7 +209,7 @@ export default {
         device.isActive = false;
       };
 
-      device.nbd.start();
+      device.nbd.start(device.mediaType);
       device.isActive = true;
     },
     stopVM(device) {
