@@ -187,6 +187,7 @@ export default {
         device.file,
         device.id,
         token,
+        device.mediaType,
       );
       device.nbd.socketStarted = () =>
         this.successToast(
@@ -209,7 +210,7 @@ export default {
         device.isActive = false;
       };
 
-      device.nbd.start(device.mediaType);
+      device.nbd.start();
       device.isActive = true;
     },
     stopVM(device) {
@@ -221,8 +222,6 @@ export default {
       data.UserName = connectionData.username;
       data.Password = connectionData.password;
       data.WriteProtected = !connectionData.isRW;
-      data.Inserted = true;
-      data.MediaType = connectionData.mediaType;
       this.startLoader();
       this.$store
         .dispatch('virtualMedia/mountImage', {
