@@ -58,6 +58,19 @@
                 :label-for="device.id"
                 label-class="bold"
               >
+                <b-form-group
+                  :label="$t('pageVirtualMedia.mediaDeviceType')"
+                  :label-for="`media-device-type-${$index}`"
+                  class="mb-2"
+                >
+                  <b-form-select
+                    :id="`media-device-type-${$index}`"
+                    v-model="device.mediaType"
+                    :disabled="device.isActive"
+                    :options="mediaDeviceTypeOptions"
+                  />
+                </b-form-group>
+
                 <b-button
                   variant="primary"
                   :disabled="device.isActive"
@@ -127,6 +140,18 @@ export default {
     };
   },
   computed: {
+    mediaDeviceTypeOptions() {
+      return [
+        {
+          value: 'CD',
+          text: this.$t('pageVirtualMedia.mediaDeviceTypes.cdDvdRom'),
+        },
+        {
+          value: 'USBStick',
+          text: this.$t('pageVirtualMedia.mediaDeviceTypes.massStorageDevice'),
+        },
+      ];
+    },
     proxyDevices() {
       return this.$store.getters['virtualMedia/proxyDevices'];
     },
@@ -184,6 +209,8 @@ export default {
       data.UserName = connectionData.username;
       data.Password = connectionData.password;
       data.WriteProtected = !connectionData.isRW;
+      data.Inserted = true;
+      data.MediaType = connectionData.mediaType;
       this.startLoader();
       this.$store
         .dispatch('virtualMedia/mountImage', {

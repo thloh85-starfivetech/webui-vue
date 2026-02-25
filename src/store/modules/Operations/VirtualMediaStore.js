@@ -83,6 +83,7 @@ const VirtualMediaStore = {
                 username: '',
                 password: '',
                 isRW: false,
+                mediaType: 'CD',
               };
             });
           commit('setProxyDevicesData', proxyDevices);
