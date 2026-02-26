@@ -9,6 +9,18 @@
           <b-row>
             <b-col v-for="(dev, $index) in proxyDevices" :key="$index" md="6">
               <b-form-group :label="dev.id" label-class="bold">
+                <b-form-group
+                  :label="$t('pageVirtualMedia.mediaDeviceType')"
+                  :label-for="`proxy-media-device-type-${$index}`"
+                  class="mb-2"
+                >
+                  <b-form-select
+                    :id="`proxy-media-device-type-${$index}`"
+                    v-model="dev.mediaType"
+                    :disabled="dev.isActive"
+                    :options="mediaDeviceTypeOptions"
+                  />
+                </b-form-group>
                 <form-file
                   v-if="!dev.isActive"
                   :id="concatId(dev.id)"
@@ -58,6 +70,19 @@
                 :label-for="device.id"
                 label-class="bold"
               >
+                <b-form-group
+                  :label="$t('pageVirtualMedia.mediaDeviceType')"
+                  :label-for="`legacy-media-device-type-${$index}`"
+                  class="mb-2"
+                >
+                  <b-form-select
+                    :id="`legacy-media-device-type-${$index}`"
+                    v-model="device.mediaType"
+                    :disabled="device.isActive"
+                    :options="mediaDeviceTypeOptions"
+                  />
+                </b-form-group>
+
                 <b-button
                   variant="primary"
                   :disabled="device.isActive"
@@ -119,6 +144,18 @@ export default {
     };
   },
   computed: {
+    mediaDeviceTypeOptions() {
+      return [
+        {
+          value: 'CD',
+          text: this.$t('pageVirtualMedia.mediaDeviceTypes.cdDvdRom'),
+        },
+        {
+          value: 'USBStick',
+          text: this.$t('pageVirtualMedia.mediaDeviceTypes.massStorageDevice'),
+        },
+      ];
+    },
     proxyDevices() {
       return this.$store.getters['virtualMedia/proxyDevices'];
     },
@@ -138,7 +175,7 @@ export default {
     startVM(device) {
       const token = this.$store.getters['authentication/token'];
       device.nbd = new NbdServer(
-        `wss://${window.location.host}${device.websocket}`,
+        `wss://${window.location.host}${device.websocket}/${device.mediaType}`,
         device.file,
         device.id,
         token
